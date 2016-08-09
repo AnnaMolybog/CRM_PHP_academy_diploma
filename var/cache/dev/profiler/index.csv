@@ -218,3 +218,6 @@ d06fe6,::1,GET,http://localhost/initiator,1470689681,,200
 98a144,::1,GET,http://localhost/Symfony_practice/adminer.php?db=symfony&select=category&username=root,1470692292,,404
 057a07,::1,GET,http://localhost/,1470692858,,200
 3b035f,::1,GET,http://localhost/,1470774655,,200
+e2c92f,::1,POST,http://localhost/,1470775299,,302
+c99540,::1,GET,http://localhost/initiator,1470775301,,200
+67ff3c,::1,GET,http://localhost/,1470775306,,200
