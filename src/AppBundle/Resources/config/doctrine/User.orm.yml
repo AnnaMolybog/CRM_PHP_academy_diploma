@@ -1,0 +1,36 @@
+AppBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        userEmail:
+            type: string
+            length: 255
+            column: user_email
+        userPassword:
+            type: string
+            length: 255
+            column: user_password
+        roleId:
+            type: integer
+            column: role_id
+    lifecycleCallbacks: {  }
+
+    oneToMany:
+        projects:
+            targetEntity: Project
+            mappedBy: user
+
+    manyToOne:
+        role:
+            targetEntity: Role
+            inversedBy: users
+            joinColumn:
+                name: role_id
+                referencedColumnName: id

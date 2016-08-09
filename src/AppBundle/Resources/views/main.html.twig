@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Bootstrap Blog Template">
+    <meta name="author" content="Vijaya Anand">
+
+    <title>{% block title %}CRM system{% endblock %}</title>
+
+    <!-- Bootstrap CSS file -->
+    {% block stylesheets %}
+        <link href="{{ asset('/bundles/app/css/bootstrap/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/app/css/blog.css') }}" type="text/css" rel="stylesheet" />
+    {% endblock %}
+
+</head>
+
+<body>
+
+<!-- Header -->
+{{ include('AppBundle::Blocks/main_navbar.html.twig') }}
+
+<!-- Body -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            {% block body %}{% endblock %}
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <hr />
+        <p class="text-center">Copyright &copy; PhpAcademy 2016. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Jquery and Bootstrap Script files -->
+{% block javascripts %}
+    <script src="{{ asset('/bundles/app/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('/bundles/app/js/bootstrap.min.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
