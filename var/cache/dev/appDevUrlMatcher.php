@@ -100,39 +100,34 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // index
+        // crm_app_homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'index');
+                return $this->redirect($pathinfo.'/', 'crm_app_homepage');
             }
 
-            return array (  '_controller' => 'AppBundle\\Controller\\MainController::indexAction',  '_route' => 'index',);
-        }
-
-        // initiator
-        if ($pathinfo === '/initiator') {
-            return array (  '_controller' => 'AppBundle\\Controller\\RoleController::initiatorAction',  '_route' => 'initiator',);
+            return array (  '_controller' => 'CRM\\AppBundle\\Controller\\RoleController::indexAction',  '_route' => 'crm_app_homepage',);
         }
 
         // admin
         if ($pathinfo === '/admin') {
-            return array (  '_controller' => 'AppBundle\\Controller\\RoleController::adminAction',  '_route' => 'admin',);
+            return array (  '_controller' => 'CRM\\AppBundle\\Controller\\RoleController::adminAction',  '_route' => 'admin',);
         }
 
-        // production_director
-        if ($pathinfo === '/productionDirector') {
-            return array (  '_controller' => 'AppBundle\\Controller\\RoleController::productionDirectorAction',  '_route' => 'production_director',);
+        // initiator
+        if ($pathinfo === '/initiator') {
+            return array (  '_controller' => 'CRM\\AppBundle\\Controller\\RoleController::initiatorAction',  '_route' => 'initiator',);
         }
 
-        if (0 === strpos($pathinfo, '/financial')) {
-            // financial_director
-            if ($pathinfo === '/financialDirector') {
-                return array (  '_controller' => 'AppBundle\\Controller\\RoleController::financialDirectorAction',  '_route' => 'financial_director',);
+        if (0 === strpos($pathinfo, '/log')) {
+            // login
+            if ($pathinfo === '/login') {
+                return array (  '_controller' => 'CRM\\SecurityBundle\\Controller\\UserController::loginAction',  '_route' => 'login',);
             }
 
-            // financial_controller
-            if ($pathinfo === '/financialController') {
-                return array (  '_controller' => 'AppBundle\\Controller\\RoleController::financialControllerAction',  '_route' => 'financial_controller',);
+            // logout
+            if ($pathinfo === '/logout') {
+                return array('_route' => 'logout');
             }
 
         }

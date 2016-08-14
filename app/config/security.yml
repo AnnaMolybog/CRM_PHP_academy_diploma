@@ -1,12 +1,26 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    encoders:
+        CRM\SecurityBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        #in_memory:
+            #memory:
+             #   users:
+              #      ryan:
+               #         password: $2y$12$L8Q4B7o1nyUe0HCZk27umOF4L.3bCAMEy14Wx9OwQHH3D1rrVa0vW
+                #        roles: 'ROLE_INITIATOR'
+                 #   admin@company.com:
+                  #      password: $2y$12$DOBX8AfYMh./7GMLma8l9OaIdvMqfop4IwxscQY2Mj4hfIFgzmsq6
+                   #     roles: 'ROLE_ADMIN'
 
+        user:
+            entity:
+                class: CRMSecurityBundle:User
+                property: username
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -20,5 +34,19 @@ security:
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            # ...
+            provider: user
+            logout:
+                path:   /logout
+                target: /login
+
+    access_control:
+            # require ROLE_ADMIN for /admin*
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/initiator, roles: ROLE_INITIATOR }
