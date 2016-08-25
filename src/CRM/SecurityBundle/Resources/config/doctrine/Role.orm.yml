@@ -1,0 +1,20 @@
+CRM\SecurityBundle\Entity\Role:
+    type: entity
+    table: null
+    repositoryClass: CRM\SecurityBundle\Repository\RoleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        role:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
+
+    oneToMany:
+        user:
+            targetEntity: User
+            mappedBy: role

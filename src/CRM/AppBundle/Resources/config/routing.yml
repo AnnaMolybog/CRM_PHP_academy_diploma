@@ -1,0 +1,11 @@
+crm_app_homepage:
+    path:     /
+    defaults: { _controller: CRMAppBundle:Role:index }
+
+admin:
+    path:     /admin
+    defaults: { _controller: CRMAppBundle:Role:admin }
+
+initiator:
+    path:     /initiator
+    defaults: { _controller: CRMAppBundle:Role:initiator }
