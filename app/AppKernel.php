@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new CRM\SecurityBundle\CRMSecurityBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new CRM\AppBundle\CRMAppBundle(),
+            new CRM\AppBundle\CRMAppBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

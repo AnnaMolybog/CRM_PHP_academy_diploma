@@ -25,7 +25,8 @@ class RoleController extends Controller
         }
         $user = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
         return $this->render('CRMAppBundle:Role:admin.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'title' => 'Admin page'
         ));
     }
 
