@@ -1,0 +1,48 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}CRMAppBundle:Project:category{% endblock %}
+
+{% block body %}
+                {% if (projects is defined) %}
+                    {% for project in projects %}
+                        <tr>
+                            <td >{{ project.id }}</td>
+                            <td>{{ project.category.name }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.amount }} mEUR</td>
+                            <td>{{ project.paybackPeriod }}</td>
+                            <td>{{ project.createdAt|date("d-m-Y") }}</td>
+                            <td>{{ project.status.name   }}</td>
+                            <td>
+                                {% set visibility = '' %}
+                                {% if project.status.name == 'Reject' %}
+                                    {% set visibility = 'disabled' %}
+                                {% endif %}
+                                <button type="button" class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#myModal-{{ project.id }}" {{ visibility }}>
+                                    Reject
+                                </button>
+                                <div class="modal fade" id="myModal-{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">Modal title</h4>
+                                            </div>
+                                            <form method="post" action="{{ path('project_reject') }}">
+                                                <input name="project_id" type="hidden" class="form-control" value="{{ project.id }}">
+                                                <div class="modal-body">
+                                                    <p>Are you sure, that you want to reject project?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Yes</button>
+                                                </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+{% endblock %}

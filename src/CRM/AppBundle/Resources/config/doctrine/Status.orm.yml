@@ -1,0 +1,23 @@
+CRM\AppBundle\Entity\Status:
+    type: entity
+    table: null
+    repositoryClass: CRM\AppBundle\Repository\StatusRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
+
+    oneToMany:
+        project:
+            targetEntity: Project
+            mappedBy: status
+        project_user_status:
+            targetEntity: CRM\AppBundle\Entity\Project_User_Status
+            mappedBy: status

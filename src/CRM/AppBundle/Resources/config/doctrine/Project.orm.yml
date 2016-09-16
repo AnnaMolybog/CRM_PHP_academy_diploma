@@ -1,0 +1,81 @@
+CRM\AppBundle\Entity\Project:
+    type: entity
+    table: null
+    repositoryClass: CRM\AppBundle\Repository\ProjectRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        currency:
+            type: string
+            length: 255
+        amount:
+            type: float
+        paybackPeriod:
+            type: integer
+            column: payback_period
+        categoryId:
+            type: integer
+            column: category_id
+        schemaId:
+            type: integer
+            column: schema_id
+        createdAt:
+            type: datetime
+            column: created_at
+        approvedAt:
+            type: datetime
+            column: approved_at
+            nullable: TRUE
+        statusId:
+            type: integer
+            column: status_id
+        userId:
+            type: integer
+            column: user_id
+            nullable: TRUE
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        category:
+            targetEntity: Category
+            inversedBy: project
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+            cascade: ['persist']
+        status:
+            targetEntity: Status
+            inversedBy: project
+            joinColumn:
+                name: status_id
+                referencedColumnName: id
+            cascade: ['persist']
+        approval_schema:
+            targetEntity: Approval_Schema
+            inversedBy: project
+            joinColumn:
+                name: schema_id
+                referencedColumnName: id
+            cascade: ['persist']
+        user:
+            targetEntity: CRM\SecurityBundle\Entity\User
+            inversedBy: project
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            cascade: ['persist']
+
+    oneToMany:
+        project_user_status:
+            targetEntity: CRM\AppBundle\Entity\Project_User_Status
+            mappedBy: project

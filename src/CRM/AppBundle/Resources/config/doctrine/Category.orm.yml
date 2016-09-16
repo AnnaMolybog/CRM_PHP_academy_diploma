@@ -1,0 +1,20 @@
+CRM\AppBundle\Entity\Category:
+    type: entity
+    table: null
+    repositoryClass: CRM\AppBundle\Repository\CategoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
+
+    oneToMany:
+        project:
+            targetEntity: Project
+            mappedBy: category

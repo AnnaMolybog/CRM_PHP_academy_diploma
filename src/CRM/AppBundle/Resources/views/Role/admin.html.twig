@@ -3,73 +3,47 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Role:admin page {{ user }}</h1>
-    <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a href="#">Projects</a></li>
-        <li role="presentation"><a href="#">Access rights</a></li>
-        <li role="presentation"><a href="#">Requests</a></li>
-    </ul>
-    <br>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">
-                    <span class="badge">14</span>
-                    All projects
-                </a>
-                <a href="#" class="list-group-item">
-                    <span class="badge">3</span>
-                    C1 Innovations
-                </a>
-                <a href="#" class="list-group-item">
-                    <span class="badge">7</span>
-                    C2 Capacity
-                </a>
-                <a href="#" class="list-group-item">
-                    <span class="badge"></span>
-                    C3 Green projects
-                </a>
-                <a href="#" class="list-group-item">
-                    <span class="badge">3</span>
-                    C5 IT projects
-                </a>
-                <a href="#" class="list-group-item">
-                    <span class="badge">1</span>
-                    C5 Food safety
-                </a>
-            </div>
-        </div>
-        <div class="col-md-9">
+    {% if (projects is defined) %}
+        {% for project in projects %}
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Category</th>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Payback period</th>
-                    <th>NPV</th>
-                </tr>
-                </thead>
-                <tr>
-                    <td>1</td>
-                    <td>C1</td>
-                    <td>Baby Food Baby Food Baby Food Baby Food Baby</td>
-                    <td>179 mUAH</td>
-                    <td>36 months</td>
-                    <td>5 mUAH</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>C7</td>
-                    <td>Food safety</td>
-                    <td>50 mUAH</td>
-                    <td>12 months</td>
-                    <td>1 mUAH</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
+            <tr>
+                <td><a href="#">{{ project.id }}</a></td>
+                <td><a href="#">{{ project.category.name }}</a></td>
+                <td><a href="#">{{ project.name }}</a></td>
+                <td>{{ project.amount }} mEUR</td>
+                <td>{{ project.paybackPeriod }}</td>
+                <td>{{ project.createdAt|date("d-m-Y") }}</td>
+                <td>{{ project.status.name }}</td>
+                <td>
+                    {% set visibility = '' %}
+                    {% if project.status.name == 'Reject' %}
+                        {% set visibility = 'disabled' %}
+                    {% endif %}
+                        <button type="button" class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#myModal-{{ project.id }}" {{ visibility }}>
+                            Reject
+                        </button>
+                    <div class="modal fade" id="myModal-{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Modal title</h4>
+                                </div>
+                                <form method="post" action="{{ path('project_reject') }}">
+                                    <input name="project_id" type="hidden" class="form-control" value="{{ project.id }}">
+                                    <div class="modal-body">
+                                        <p>Are you sure, that you want to reject project?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </form>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

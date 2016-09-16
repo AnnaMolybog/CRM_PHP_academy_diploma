@@ -1,13 +1,11 @@
 <?php
 
-namespace CRM\SecurityBundle\Entity;
-
-use Symfony\Component\Security\Core\User\UserInterface;
+namespace CRM\AppBundle\Entity;
 
 /**
- * User
+ * Status
  */
-class User implements  UserInterface
+class Status
 {
     /**
      * @var int
@@ -17,23 +15,13 @@ class User implements  UserInterface
     /**
      * @var string
      */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var int
-     */
-    private $roleId;
+    private $name;
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -41,120 +29,27 @@ class User implements  UserInterface
     }
 
     /**
-     * Set username
+     * Set name
      *
-     * @param string $username
+     * @param string $name
      *
-     * @return User
+     * @return Status
      */
-    public function setUsername($username)
+    public function setName($name)
     {
-        $this->username = $username;
-    
+        $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Get username
+     * Get name
      *
      * @return string
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set roleId
-     *
-     * @param integer $roleId
-     *
-     * @return User
-     */
-    public function setRoleId($roleId)
-    {
-        $this->roleId = $roleId;
-    
-        return $this;
-    }
-
-    /**
-     * Get roleId
-     *
-     * @return integer
-     */
-    public function getRoleId()
-    {
-        return $this->roleId;
-    }
-
-    public function getSalt()
-    {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
-    }
-
-    public function getRoles()
-    {
-        return explode(' ', $this->getRole()->getRole());
-    }
-
-    public function eraseCredentials()
-    {
-    }
-    /**
-     * @var \CRM\SecurityBundle\Entity\Role
-     */
-    private $role;
-
-
-    /**
-     * Set role
-     *
-     * @param \CRM\SecurityBundle\Entity\Role $role
-     *
-     * @return User
-     */
-    public function setRole(\CRM\SecurityBundle\Entity\Role $role = null)
-    {
-        $this->role = $role;
-    
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return \CRM\SecurityBundle\Entity\Role
-     */
-    public function getRole()
-    {
-        return $this->role;
+        return $this->name;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -174,7 +69,7 @@ class User implements  UserInterface
      *
      * @param \CRM\AppBundle\Entity\Project $project
      *
-     * @return User
+     * @return Status
      */
     public function addProject(\CRM\AppBundle\Entity\Project $project)
     {
@@ -213,7 +108,7 @@ class User implements  UserInterface
      *
      * @param \CRM\AppBundle\Entity\Project_User_Status $projectUserStatus
      *
-     * @return User
+     * @return Status
      */
     public function addProjectUserStatus(\CRM\AppBundle\Entity\Project_User_Status $projectUserStatus)
     {

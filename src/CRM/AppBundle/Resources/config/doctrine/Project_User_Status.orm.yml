@@ -1,0 +1,44 @@
+CRM\AppBundle\Entity\Project_User_Status:
+    type: entity
+    table: null
+    repositoryClass: CRM\AppBundle\Repository\Project_User_StatusRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        projectId:
+            type: integer
+            column: project_id
+        userId:
+            type: integer
+            column: user_id
+        statusId:
+            type: integer
+            column: status_id
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        project:
+            targetEntity: CRM\AppBundle\Entity\Project
+            inversedBy: project
+            joinColumn:
+                name: project_id
+                referencedColumnName: id
+            cascade: ['persist']
+        user:
+            targetEntity: CRM\SecurityBundle\Entity\User
+            inversedBy: user
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            cascade: ['persist']
+        status:
+            targetEntity: CRM\AppBundle\Entity\Status
+            inversedBy: status
+            joinColumn:
+                name: status_id
+                referencedColumnName: id
+            cascade: ['persist']

@@ -12,9 +12,23 @@ CRM\SecurityBundle\Entity\Role:
         role:
             type: string
             length: 255
+        sequence:
+            type: integer
     lifecycleCallbacks: {  }
 
     oneToMany:
         user:
             targetEntity: User
             mappedBy: role
+
+    manyToMany:
+        approval_schema:
+          targetEntity: CRM\AppBundle\Entity\Approval_Schema
+          joinTable:
+            name: Schema_Role
+            joinColumns:
+              role_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              schema_id:
+                referencedColumnName: id

@@ -1,0 +1,26 @@
+CRM\AppBundle\Entity\Approval_Schema:
+    type: entity
+    table: null
+    repositoryClass: CRM\AppBundle\Repository\Approval_SchemaRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        amountCondition:
+            type: string
+            length: 255
+            column: amount_condition
+    lifecycleCallbacks: {  }
+
+    oneToMany:
+        project:
+            targetEntity: Project
+            mappedBy: approval_schema
+
+    manyToMany:
+        role:
+          targetEntity: CRM\SecurityBundle\Entity\Role
+          mappedBy: approval_schema

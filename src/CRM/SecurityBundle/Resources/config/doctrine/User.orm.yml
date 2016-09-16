@@ -29,3 +29,10 @@ CRM\SecurityBundle\Entity\User:
                 referencedColumnName: id
             cascade: ['persist']
 
+    oneToMany:
+        project_user_status:
+            targetEntity: CRM\AppBundle\Entity\Project_User_Status
+            mappedBy: user
+        project:
+            targetEntity: CRM\AppBundle\Entity\Project
+            mappedBy: user

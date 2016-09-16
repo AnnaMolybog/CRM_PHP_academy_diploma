@@ -9,3 +9,21 @@ admin:
 initiator:
     path:     /initiator
     defaults: { _controller: CRMAppBundle:Role:initiator }
+
+category:
+    path:     /category/{id}
+    defaults: { _controller: CRMAppBundle:Project:category }
+    requirements:
+        id: '\d+'
+
+view:
+    path:     /view
+    defaults: { _controller: CRMAppBundle:Project:view }
+
+project_reject:
+    path: /project_reject
+    defaults: { _controller: CRMAppBundle:Project:reject }
+
+access_right:
+    path: /access_right
+    defaults: { _controller: CRMAppBundle:Role:accessRight }

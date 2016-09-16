@@ -13,6 +13,7 @@
     {% block stylesheets %}
         <link href="{{ asset('/bundles/app/css/bootstrap/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('/bundles/app/css/blog.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/app/css/styles.css') }}" type="text/css" rel="stylesheet" />
     {% endblock %}
 
 </head>
@@ -27,8 +28,64 @@
     <div class="row">
         <div class="col-md-12">
 
-            {% block body %}{% endblock %}
+            {% set navigation_bar = [
+                [path('admin'), 'Projects'],
+                [path('access_right'), 'Access rights']
+            ] %}
 
+            {% set active_page = active_page|default('admin') %}
+            {% set active_url = path(active_page) %}
+
+            <ul class="nav nav-tabs nav-justified">
+                {% for item in navigation_bar %}
+                    <li role="presentation" {% if item[0] == active_url %} class="active" {% endif %}>
+                        <a href="{{ item[0] }}">{{ item[1]|raw }}</a>
+                    </li>
+                {% endfor %}
+                <li role="presentation"><a href="#">Requests</a></li>
+            </ul>
+            <br>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="{{ path('admin') }}" class="list-group-item {{ app.request.attributes.get('_route') == 'admin' ? 'active' }}">
+                            <span class="badge">{{ total_amount_of_projects|length }}</span>
+                            All projects
+                        </a>
+                        {% if (categories is defined) %}
+                            {%  for category in categories %}
+                                <a href="{{ path('category', {'id': category.id}) }}"
+                                    {% if app.request.attributes.get('_route') == 'category' and app.request.attributes.get('id') == category.id %}
+                                        class="list-group-item active"
+                                    {% else %}
+                                        class="list-group-item"
+                                    {% endif %}
+                                    >
+                                    <span class="badge">{{ category.project.count }}</span>
+                                    {{ category.name }}
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Category</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Payback period</th>
+                            <th>Created at</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        {% block body %}{% endblock %}
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
